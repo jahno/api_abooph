@@ -15,7 +15,9 @@ Route.get('commande', 'CommandeController.index').middleware('checkConnect')
 Route.post('commande', 'CommandeController.store')//.middleware('checkConnect')
 Route.post('image', 'UserController.addImage')
 
-
+Route.get('test', ({request,response})=>{
+	return response.json({"test":"jahno"})
+})
 
 })
   .prefix('v1/user')
