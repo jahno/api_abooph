@@ -16,7 +16,7 @@ Route.post('commande', 'CommandeController.store')//.middleware('checkConnect')
 Route.post('image', 'UserController.addImage')
 
 Route.get('test', ({request,response})=>{
-	return response.json({"name":"jahno"})
+	return response.json({"name":"jahnoters"})
 })
 
 })
