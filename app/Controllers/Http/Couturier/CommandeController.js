@@ -48,6 +48,7 @@ class CommandeController {
                                     co.where('couturiers.id',infoUser.id)
                                   })
                                   .with('user')
+                                  .with('mesure')
                                   .with('coursier')
                                   .with('panier.articles',(elt)=>{
                                     elt.where('couturier_id',infoUser.id)

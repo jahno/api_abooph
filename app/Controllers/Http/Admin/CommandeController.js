@@ -14,7 +14,7 @@ class CommandeController {
     
     
     const results = await Commande.query()
-                          .with('user.mesure')
+                          .with('user')
                           .with('coursier')
                           .with('panier.articles.couturier')
                           .orderBy('id', 'DESC')
@@ -26,9 +26,15 @@ class CommandeController {
   async show ({request,response,params}) {
     const commande = await Commande.query()
                                   .where('id',params.id)
-                                  .with('user.mesure')
+                                  .with('user')
+                                  .with('mesure')
                           		  .with('coursier')
-                          		  .with('panier.articles.couturier')
+                                .with('panier.articles',(elt)=>{
+                                  elt.with('images')
+                                  elt.with('couturier')
+                                  
+                                  elt.withPivot(['qte','EtatConfection'])
+                                })
                                   .first()
     return response.status(200).send(commande)
 

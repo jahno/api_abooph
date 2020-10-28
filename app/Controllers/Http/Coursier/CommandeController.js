@@ -41,9 +41,11 @@ class CommandeController {
     const commande = await Commande.query()
     							  .where('coursier_id',infoUser.id)
                                   .where('id',params.id)
-                                  .with('user.mesure')
-                          		    .with('panier.articles.couturier')
+                                  .with('mesure')
+                                  .with('user')
                                   .with('panier.articles',(elt)=>{
+                                    elt.with('images')
+                                    elt.with('couturier')
                                     elt.withPivot(['qte','EtatConfection'])
                                   })
                                   .first()
