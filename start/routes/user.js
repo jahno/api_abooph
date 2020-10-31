@@ -12,6 +12,7 @@ Route.post('register', 'UserController.store')
 Route.get('profile', 'UserController.profile').middleware('checkConnect')
 Route.post('edit', 'UserController.edit').middleware('checkConnect')
 Route.get('commande', 'CommandeController.index').middleware('checkConnect')
+Route.get('commande/:id', 'CommandeController.show').middleware('checkConnect')
 Route.post('commande', 'CommandeController.store')//.middleware('checkConnect')
 Route.post('image', 'UserController.addImage')
 

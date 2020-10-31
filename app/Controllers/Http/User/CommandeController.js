@@ -10,9 +10,51 @@ const {validateAll} = use('Validator')
 
 
 class CommandeController {
-  async index () {
+  async index ({request,response,auth}) {
+
+    
+  let  infoUser = await auth.authenticator(`jwt_user`).getUser()  
+     
+  let page = request.input('page') || 1
+    
+
+ const results = await Commande.query()
+                                .whereHas('user',(data)=>{
+                                  data.where('id',infoUser.id)
+                                })
+                                .with('coursier')
+                                .with('mesure')
+                                .with('panier.articles',(elt)=>{
+                                    elt.with('images')
+                                    elt.withPivot(['qte','EtatConfection'])
+                                  })
+                                .paginate(page, 10)
+
+  return response.json({results})
+
 
   }
+
+
+
+  async show ({request,response,params,auth}) {
+
+    let  infoUser = await auth.authenticator(`jwt_user`).getUser()  
+    const commande = await Commande.query()
+                                  .whereHas('user',(data)=>{
+                                    data.where('id',infoUser.id)
+                                  })
+                                  .where('id',params.id)
+                                  .with('mesure')
+                                  .with('panier.articles',(elt)=>{
+                                    elt.with('images')
+                                    elt.withPivot(['qte','EtatConfection'])
+                                  })
+                                  .first()
+    return response.status(200).send(commande)
+
+  }
+
 
  
 
@@ -84,11 +126,7 @@ class CommandeController {
 
   }
 
-  async show ({request,response}) {
-    
-    Event.emit('new::commande', 'jahno','hacker')
-
-  }
+ 
 
   /*async email_order(articles,infoUser,com,total){
     
