@@ -15,6 +15,7 @@ Route.get('commande', 'CommandeController.index').middleware('checkConnect')
 Route.get('commande/:id', 'CommandeController.show').middleware('checkConnect')
 Route.post('commande', 'CommandeController.store')//.middleware('checkConnect')
 Route.post('image', 'UserController.addImage')
+Route.get('articles/couturier/:id', 'ArticleController.show')
 
 
 })
