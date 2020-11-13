@@ -1,8 +1,10 @@
 'use strict'
 const User = use('App/Models/User')
+const Newsletter = use('App/Models/Newselleter')
+
 
 const {validateAll} = use('Validator')
- const sharp = require('sharp');
+ //const sharp = require('sharp');
 
 class UserController {
 
@@ -17,7 +19,7 @@ const validation = await validateAll(request.all(),{
        pays: 'required',
        ville: 'required',
        Adresse_geographique: 'required',
-       numero: 'required',
+       numero: 'required|unique:users',
     })
 
     if(validation.fails()){
@@ -42,6 +44,27 @@ const validation = await validateAll(request.all(),{
     const user = await User.findOrFail(params.id)
     return response.send(user)
   }
+
+
+  async newsletter({ request, response }) {
+
+    const validation = await validateAll(request.all(),{
+           email: 'required|email|unique:newselleters'
+        })
+    
+        if(validation.fails()){
+          return response.status(404).json(validation.messages()) 
+        } 
+    
+        const newseleter = await Newsletter.create(request.only('email'))
+    
+        return response
+          .status(201)
+          .send({msg:'Compte enregistrement'})
+      }
+
+
+  
 
 
 async profile({ request, response }) {
@@ -106,6 +129,10 @@ const validation = await validateAll(request.all(),this.modelUser())
     }
   }
 
+
+
+
+
   modelUser(){
     return {
        email: 'required|email',
@@ -120,21 +147,21 @@ const validation = await validateAll(request.all(),this.modelUser())
   }
 
 
-  async addImage({request,response}){
+//   async addImage({request,response}){
     
  
-let inputFile  = request.input('images')[0]
-const uri = inputFile.split(';base64,').pop()
-sharp(inputFile)
-  .resize(300, 200)
-  .toFormat('png')
-  .toBuffer()
-  .then((d)=>{
-    console.log(d)
-  })
+// let inputFile  = request.input('images')[0]
+// const uri = inputFile.split(';base64,').pop()
+// sharp(inputFile)
+//   .resize(300, 200)
+//   .toFormat('png')
+//   .toBuffer()
+//   .then((d)=>{
+//     console.log(d)
+//   })
 
 
-}
+// }
 
 
   async decodedImage(tab,nom,id){
