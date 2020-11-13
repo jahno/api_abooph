@@ -90,12 +90,18 @@ class AuthController {
     const {jwt} = request.post()
     const {email,password} = request.all()
     let elt = request.url().split('/')[request.url().split('/').length -1]
- 
+        
  
     const {token} = await auth
       .authenticator(jwt)
       .attempt(email,password)
-  let use =  await eval(elt).findBy('email', email)
+    
+      let use;
+      if(jwt == 'jwt_num'){
+        use =  await eval(elt).findBy('numero', email)
+      }else{
+         use =  await eval(elt).findBy('email', email)
+      }
 
      if(jwt == 'jwt_admin'){
       let roles = await use.getRoles()

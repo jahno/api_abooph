@@ -88,6 +88,16 @@ module.exports = {
     }
   },
 
+  jwt_num: {
+    serializer: 'lucid',
+    model: 'App/Models/User',
+    scheme: 'jwt',
+    uid: 'numero',
+    password: 'password',
+    options: {
+      secret: Env.get('APP_KEY')
+    }
+  },
   
 
   jwt_coursier: {

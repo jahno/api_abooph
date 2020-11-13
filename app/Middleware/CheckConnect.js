@@ -8,7 +8,7 @@ class CheckConnect {
      	   let n = request.url().split('/')[2]
          
         
-
+           
           //console.log(n)
       let ver =  await auth.authenticator(`jwt_${n}`).check()
        if(ver){
