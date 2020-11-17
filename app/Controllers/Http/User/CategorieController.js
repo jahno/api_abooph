@@ -17,6 +17,11 @@ class CategorieController {
   return response.json({results})
 
   }
+
+
+  
+     
+
 }
 
 module.exports = CategorieController

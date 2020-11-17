@@ -18,11 +18,14 @@ class SetJwtLogin {
  if(validation.fails()){
       return response.status(404).json({msg:'veuillez renseignez tous les paramtres (email & password)'}) 
     }
-  if(this.isNumeric(request.input('email'))){
-      request.body.jwt= 'jwt_num'
-  }else{
-     request.body.jwt='jwt_'+jwt
-  }
+    if(jwt == 'user'){
+      if(this.isNumeric(request.input('email'))){
+        request.body.jwt= 'jwt_num'
+      }
+    }else{
+      request.body.jwt='jwt_'+jwt
+    }
+ 
     await next()
   }
 

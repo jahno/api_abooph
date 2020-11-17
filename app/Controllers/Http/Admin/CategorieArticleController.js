@@ -42,7 +42,12 @@ async ShowArticle ({request,response}) {
 
     const data = request.only(Object.keys(this.modelA()))
     
+    if(request.input('parent_id')){
+      data.pareent_id = request.input('parent_id')
+    }
+
  
+   await coursier.save()
 
     const categorieArticle = await CategorieArticle.create(data)
 
