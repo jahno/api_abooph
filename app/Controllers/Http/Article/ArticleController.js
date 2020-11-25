@@ -17,7 +17,7 @@ class ArticleController {
                           .with('categories')
                           .with('couturier')
                           .orderBy('id', 'DESC')
-                          .where('Etat',1)
+                          .where('Etat',2)
                           .paginate(page, 10)
   return response.json({results})
   }
@@ -39,7 +39,7 @@ class ArticleController {
                           .with('couturier')
                           .with('categories')
                           .orderBy('id', 'DESC')
-                          .where('Etat',1)
+                          .where('Etat',2)
                           .limit(limit)
                           .fetch()
         return response.json({results})
@@ -52,7 +52,7 @@ class ArticleController {
                           .with('categories')
                           .with('couturier')
                           .orderBy('id', 'DESC')
-                          .where('Etat',1)
+                          .where('Etat',2)
                           .fetch()
   return response.json({results})
   }

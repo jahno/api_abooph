@@ -5,6 +5,7 @@ const Commande = use('App/Models/Commande')
 const Article = use('App/Models/Commande')
 const ArticlePanier = use('App/Models/ArticlePanier')
 const Couturier = use('App/Models/Couturier')
+const Event = use('Event')
  
 
 class CommandeController {
@@ -33,6 +34,7 @@ class CommandeController {
                                    //elt.with('etatConfectionArticle')
                                     elt.withPivot(['qte','EtatConfection'])
                                   })
+                                .orderBy('id', 'DESC')
                                 .paginate(page, 10)
 
   return response.json({results})
@@ -74,6 +76,7 @@ class CommandeController {
                                     elt.where('couturier_id',infoUser.id)
                                   })
                                   .first()
+                                  const com = await Commande.query().where('id',params.id_commande).update({ etat : 4 })    
  
          const results = await Database.table('article_panier')
                                   .where('article_id',params.id_article)
@@ -92,6 +95,7 @@ class CommandeController {
       let  infoUser = await auth.authenticator(`jwt_couturier`).getUser()  
     const commande = await Commande.query()
                                   .where('id',params.id_commande)
+                                  .with('coursier')
                                    
                                   .whereHas('panier.articles',(elt)=>{
                                     elt.where('articles.id',params.id_article)
@@ -99,6 +103,7 @@ class CommandeController {
                                   })
                                   .first()
 
+                                                    
 
  
          const results = await Database.table('article_panier')
@@ -112,9 +117,12 @@ class CommandeController {
      let t = veri.every(this.checkAll)
          
          if(t){
-           commande.Etat = 3
+           commande.Etat = 5
            await commande.save()
            //bon on peut envoyer le mail ici 
+
+           Event.emit('end::commande', commande)
+            
          }
 
     return response.status(200).send({msg:"Fin Confection"})

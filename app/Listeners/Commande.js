@@ -33,6 +33,7 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
         return a
     })
   
+
          
    
       //on envoie le mail a l'utilisateur 
@@ -41,6 +42,14 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
       .from('aboophCouture@gmail.com')
       .subject('Récapitulatif de votre commande')
     })
+
+      //on envoie le mail a l'admin 
+      await Mail.send('auth.emails.admin',{commande:com.toJSON()}, message => {
+        message.to("kaspsergekesse@gmail.com")
+        .from('aboophCouture@gmail.com')
+        .subject('Creation Commande')
+      })
+    
 
      
       
@@ -65,18 +74,18 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
        //je recupere les differents couturiers 
          
       
-     /*couturier_id.map( async (elt)=> {
+     couturier_id.map( async (elt)=> {
     	 const infoCouturier = await Couturier.findOrFail(elt)
                 
                 //on envoie pour notifier les couturier qu'ils ont reussir une new commande :)
 
-    	  await Mail.send('auth.emails.couturier_order',{user:infoCouturier.toJSON()}, message => {
+    	  await Mail.send('auth.emails.affectation',{user:infoCouturier.toJSON()}, message => {
 	      message.to(infoCouturier.email)
 	      .from('aboophCouture@gmail.com')
 	      .subject('Nouvelle commande')
 	    })
 
-    })*/
+    })
          
    commande.etat=2
    commande.mesure_id= mesure.id
@@ -99,11 +108,11 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
           const infoCoursier = await Coursier.findOrFail(id_coursier)
 
 
-    	 /* await Mail.send('auth.emails.coursier_order',{user:infoCoursier.toJSON()}, message => {
+    	  await Mail.send('auth.emails.affectation',{user:infoCoursier.toJSON()}, message => {
 	      message.to(infoCoursier.email)
 	      .from('aboophCouture@gmail.com')
 	      .subject('Commande Affecter')
-	    })*/
+	    })
 
 
        
@@ -114,6 +123,14 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
 
 
 
+  Commande.endCommande = async (commande) =>{
+
+    await Mail.send('auth.emails.coursier_order_end',{commande:commande.toJSON()}, message => {
+      message.to(commande.coursier.email)
+      .from('aboophCouture@gmail.com')
+      .subject(`Commande ${commande.id} Terminer`)
+    })
+  }
 
 
 

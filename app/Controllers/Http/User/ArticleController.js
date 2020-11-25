@@ -12,6 +12,7 @@ class ArticleController {
           const results = await Article.query()
                                 .with('images')
                                 .where('couturier_id',params.id)
+                                .where('Etat','>',0)
                                 .orderBy('id', 'DESC')
                                 .paginate(1, 10)
         return response.json({results})

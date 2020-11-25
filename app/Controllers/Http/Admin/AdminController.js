@@ -19,7 +19,7 @@ class AdminController {
     }*/
 
     //const admins = await query.paginate(1, 10)
-    const admins = await query.fetch()
+    const admins = await query.orderBy('id', 'DESC').fetch()
 
     return response.send(admins)
 

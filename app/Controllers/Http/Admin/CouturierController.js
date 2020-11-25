@@ -19,7 +19,7 @@ class CouturierController {
     }
 
     //const couturiers = await query.paginate(pagination.page, pagination.perpage)
-    const couturiers = await query.paginate(page, 10)
+    const couturiers = await query.orderBy('id', 'DESC').paginate(page, 10)
     return response.send(couturiers)
 
 

@@ -2,6 +2,8 @@
 
 const Database = use('Database')
 const Commande = use('App/Models/Commande')
+const MesureFemme = use('App/Models/MesureFemme')
+//const MesureHomme = use('App/Models/MesureHomme')
 
 class CommandeController {
 
@@ -50,6 +52,18 @@ class CommandeController {
                                   })
                                   .first()
     return response.status(200).send(commande)
+
+  }
+
+
+  async mesure ({request,response,params,auth}) {
+
+    let  infoUser = await auth.authenticator(`jwt_coursier`).getUser()  
+    let mesure = params.type == 'homme' ? 'MesureFemme' :'MesureFemme'
+     
+    const lmesure = await eval(mesure).query().fetch()
+    							
+    return response.status(200).send(lmesure)
 
   }
 

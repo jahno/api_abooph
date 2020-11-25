@@ -17,7 +17,7 @@ class CoursierController {
     }
 
     //const coursiers = await query.paginate(pagination.page, pagination.perpage)
-    const coursiers = await query.paginate(page, 10)
+    const coursiers = await query.orderBy('id', 'DESC').paginate(page, 10)
     return response.send(coursiers)
 
 

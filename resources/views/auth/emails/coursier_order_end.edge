@@ -111,8 +111,8 @@
                             </tr>                            
                            <tr>
                                 <td>
-                                    <p style="font-size: 14px;"><b>Salut <b>{{user.nom}}</b>,</p>
-                                    <p style="font-size: 14px;">La commande est traitée avec succès et votre commande est en cours,</p>
+                                    <p style="font-size: 14px;"><b>Salut <b>{{commande.coursier.nom}}</b>,</p>
+                                    <p style="font-size: 14px;">La commande est terminée, merci de vous connecter a votre interface</p>
                                     <p style="font-size: 14px;">Numero de commande : {{commande.id}},</p>
                                 </td>
                             </tr> 
@@ -122,88 +122,14 @@
                                 <tbody>
                                     <tr>
                                     <td style="background-color: #fafafa;border: 1px solid #ddd;padding: 15px;letter-spacing: 0.3px;width: 50%;">
-                                        <h5 style="font-size: 16px; font-weight: 600;color: #000; line-height: 16px; padding-bottom: 13px; border-bottom: 1px solid #e6e8eb; letter-spacing: -0.65px; margin-top:0; margin-bottom: 13px;">Votre adresse de livraison</h5>
-                                        <p style="text-align: left;font-weight: normal; font-size: 14px; color: #000000;line-height: 21px;    margin-top: 0;"> {{user.Adresse_geographique}} </p>
+                                        <h5 style="font-size: 16px; font-weight: 600;color: #000; line-height: 16px; padding-bottom: 13px; border-bottom: 1px solid #e6e8eb; letter-spacing: -0.65px; margin-top:0; margin-bottom: 13px;">Lieu de  livraison</h5>
+                                        <p style="text-align: left;font-weight: normal; font-size: 14px; color: #000000;line-height: 21px;    margin-top: 0;"> {{commande.user.Adresse_geographique}} </p>
                                     </td>
-                                    <td><img src="http://91.234.195.219:3333/images/email-temp/space.jpg" alt=" " height="25" width="30"></td>
-                                    <!-- <td style="background-color: #fafafa;border: 1px solid #ddd;padding: 15px;letter-spacing: 0.3px;width: 50%;">
-                                        <h5 style="font-size: 16px;font-weight: 600;color: #000; line-height: 16px; padding-bottom: 13px; border-bottom: 1px solid #e6e8eb; letter-spacing: -0.65px; margin-top:0; margin-bottom: 13px;">Lieu de livraison</h5>
-                                       <p style="text-align: left;font-weight: normal; font-size: 14px; color: #000000;line-height: 21px;    margin-top: 0;">268 Cambridge Lane New Albany,<br> IN 47150268 Cambridge Lane <br>New Albany, IN 47150</p>
-                                    </td> -->
+                                    
                                 </tr>
                             </tbody>
                         </table>
-                        <table class="order-detail" border="0" cellpadding="0" cellspacing="0"  align="left" style="width: 100%;    margin-bottom: 50px;">
-                            <tr align="left">
-                                <th>PRODUIT</th>
-                                <th style="padding-left: 15px;">DESCRIPTION</th>
-                                <th>QUANTITÉ</th>
-                                <th>PRIX </th>
-                            </tr>
-                            
-                            @each(article in articles)
-                            <tr>                                
-                                <td>
-                                    <!-- <img src="assetsUrl("{{article.images[1].chemin}}")" alt="" width="80"> -->
-                                    <img src="http://91.234.195.219:3333/{{article.images[0].chemin}}" alt="" width="80">
-                                </td>
-                                <td valign="top" style="padding-left: 15px;">
-                                    <h5 style="margin-top: 15px;">{{article.description}} </h5>
-                                </td>
-                                <td valign="top" style="padding-left: 15px;">
-                                  <!--   <h5 style="font-size: 14px; color:#444;margin-top:15px;    margin-bottom: 0px;">Size : <span> L</span> </h5> -->
-                                    <h5 style="font-size: 14px; color:#444;margin-top: 10px;">QTY : <span>{{article.qte}}</span></h5>                                    
-                                </td>
-                                <td valign="top" style="padding-left: 15px;">
-                                    <h5 style="font-size: 14px; color:#444;margin-top:15px"><b>{{article.prix}} FCFA </b></h5>                  
-                                </td>
-                            </tr>
-                            @endeach
-
-                            
-                      
-                            <tr class="pad-left-right-space ">
-                                <td class="m-t-5" colspan="2" align="left">
-                                    <p style="font-size: 14px;">Sous-total : </p>
-                                </td>
-                                <td class="m-t-5" colspan="2" align="right">
-                                    <b style>{{sub}} FCFA</b>
-                                </td>
-                            <!-- <tr class="pad-left-right-space">
-                                <td colspan="2" align="left">
-                                    <p style="font-size: 14px;">IMPÔT :</p>
-                                </td>
-                                <td colspan="2" align="right">
-                                    <b>$5</b>
-                                </td>
-                            </tr>
-                            <tr class="pad-left-right-space">
-                                <td colspan="2" align="left">
-                                    <p style="font-size: 14px;">TVA :</p>
-                                </td>
-                                <td colspan="2" align="right">
-                                    <b>$5</b>
-                                </td>
-                            </tr> -->
-                            <tr class="pad-left-right-space">
-                                <td colspan="2" align="left">
-                                    <p style="font-size: 14px;">Livraison :</p>
-                                </td>
-                                <td colspan="2" align="right">
-                                    <b>{{commande.livraison}} FCFA</b>
-                                </td>
-                            </tr>
-                         
-                            <tr class="pad-left-right-space ">
-                                <td class="m-b-5" colspan="2" align="left">
-                                    <p style="font-size: 14px;">Total :</p>
-                                </td>
-                                <td class="m-b-5" colspan="2" align="right">
-                                    <b>{{commande.total}} FCFA</b>
-                                </td>
-                            </tr>
-                           
-                        </table>
+                       
                         
                     </td>
                 </tr>

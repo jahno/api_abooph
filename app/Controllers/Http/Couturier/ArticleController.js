@@ -122,9 +122,11 @@ class ArticleController {
    async publish ({request,auth,response,params}) {
       
       const article = await Article.findOrFail(params.id)
+
+     
             
-            
-            article.Etat  = (article.Etat == 1 || article.Etat == 0 ) ? 2 : 1           
+                    
+            article.Etat  = article.Etat ==  2  ? 2 : article.Etat ==  1 ? 0 : 1           
             article.save()
           
           
