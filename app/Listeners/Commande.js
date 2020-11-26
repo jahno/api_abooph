@@ -33,7 +33,7 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
         return a
     })
   
-
+    
          
    
       //on envoie le mail a l'utilisateur 
@@ -45,9 +45,9 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
 
       //on envoie le mail a l'admin 
       await Mail.send('auth.emails.admin',{commande:com.toJSON()}, message => {
-        message.to("kaspsergekesse@gmail.com")
+        message.to("jeba760@gmail.com")
         .from('aboophCouture@gmail.com')
-        .subject('Creation Commande')
+        .subject(`Creation Commande N°${com.toJSON().numeroCommande}`)
       })
     
 
@@ -79,7 +79,7 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
                 
                 //on envoie pour notifier les couturier qu'ils ont reussir une new commande :)
 
-    	  await Mail.send('auth.emails.affectation',{user:infoCouturier.toJSON()}, message => {
+    	  await Mail.send('auth.emails.affectation',{user:infoCouturier.toJSON(),interface:'http://couturierrec.abooph.com'}, message => {
 	      message.to(infoCouturier.email)
 	      .from('aboophCouture@gmail.com')
 	      .subject('Nouvelle commande')
@@ -108,7 +108,7 @@ Commande.sendMail =  async (article,infoUser,com,total)=> {
           const infoCoursier = await Coursier.findOrFail(id_coursier)
 
 
-    	  await Mail.send('auth.emails.affectation',{user:infoCoursier.toJSON()}, message => {
+    	  await Mail.send('auth.emails.affectation',{user:infoCoursier.toJSON(),interface:'http://coursierrec.abooph.com'}, message => {
 	      message.to(infoCoursier.email)
 	      .from('aboophCouture@gmail.com')
 	      .subject('Commande Affecter')

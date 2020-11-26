@@ -38,7 +38,7 @@ class ArticleController {
  const image = new Image()
  const transaction = await Database.beginTransaction()
     try {
-      let article = request.only(['nom', 'description', 'prix','prix_barre'])
+      let article = request.only(['nom', 'description', 'prix','temps_confection'])
          
       let images  = request.input('images')
         article.couturier_id = infoUser.id
@@ -78,7 +78,7 @@ class ArticleController {
     const transaction = await Database.beginTransaction()
     const article = await Article.findOrFail(params.id)
     try {
-      const data = request.only(['nom', 'description', 'prix','prix_barre'])
+      const data = request.only(['nom', 'description', 'prix','temps_confection'])
       article.merge(data)
       if(request.input('images')){
         this.decodedImageModifById(request.input('images'),infoUser.nom)

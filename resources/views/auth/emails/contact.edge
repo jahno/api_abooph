@@ -1,0 +1,33 @@
+@layout('auth/emails/base')
+@section('main')
+
+<body style="margin: 20px auto;">
+    <table align="center" border="0" cellpadding="0" cellspacing="0" style="padding: 0 30px;background-color: #fff; -webkit-box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353);box-shadow: 0px 0px 14px -4px rgba(0, 0, 0, 0.2705882353);width: 100%;">
+        <tbody>
+            <tr>
+                <td>
+                    <table align="left" border="0" cellpadding="0" cellspacing="0" style="text-align: left;" width="100%">
+                        <tr>
+                            <td style="text-align: center;">
+                                <img src="http://91.234.195.219:3333/images/email-temp/delivery-2.png" alt="" style="margin-bottom: 30px;"> 
+
+                                
+                            </td>
+                        </tr>                            
+                       <tr>
+                            <td>
+                                <p style="font-size: 14px;"><b>Salut <b>{{data.nom}}</b>,</p>
+                                <p style="font-size: 14px;">{{data.message}} </p>
+                                <p style="font-size: 14px;">Email : {{data.email}}</p>
+                                <p style="font-size: 14px;">Nom: {{data.nom}}</p>
+                                <p style="font-size: 14px;">Tel: {{data.tel}}</p>
+                            </td>
+                        </tr> 
+                    </table> 
+                    
+                </td>
+            </tr>
+        </tbody>            
+    </table>
+
+@endsection

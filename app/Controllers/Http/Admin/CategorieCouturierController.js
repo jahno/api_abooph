@@ -47,7 +47,7 @@ async ShowCouturier ({request,response}) {
 
     return response
       .status(201)
-      .send({msg:'creation de la categorie couturier effectue'})
+      .send({msg:'creation de la categorie couturier effectué avec succès'})
 
   }
 
@@ -85,7 +85,7 @@ async ShowCouturier ({request,response}) {
 
     categorieCouturier.merge(data)
     await categorieCouturier.save()
-    return response.send({msg:'modification de la categorie couturier effectue',categorieCouturier})
+    return response.send({msg:'modification de la categorie couturier effectué avec succès',categorieCouturier})
 
   }
 
@@ -96,7 +96,7 @@ async ShowCouturier ({request,response}) {
      // await categorieCouturier.couturiers().detach(null, transaction)
       await categorieCouturier.delete(transaction)
       await transaction.commit()
-      return response.status(200).send({msg:'categorie Couturier suprime'})
+      return response.status(200).send({msg:'categorie couturier suprimé  avec succès'})
     } catch (error) {
       await transaction.rollback()
       return response.status(error.status).send(error)

@@ -60,7 +60,7 @@ class CoursierController {
 
     return response
       .status(201)
-      .send({msg:'creation du compte effectue'})
+      .send({msg:'creation du compte effectué'})
 
   }
 
@@ -92,14 +92,14 @@ class CoursierController {
 
     coursier.merge(data)
     await coursier.save()
-    return response.send({msg:'modification du compte effectue',coursier})
+    return response.send({msg:'modification du compte effectué avec succès',coursier})
   }
 
   async destroy ({request,response,params}) {
     try {
       const coursier = await Coursier.findOrFail(params.id)
       await coursier.delete()
-       return response.status(200).send({msg:'suppression du compte effectue'})
+       return response.status(200).send({msg:'suppression du compte effectué avec succès'})
     } catch (error) {
       return response
         .status(400)
@@ -118,7 +118,7 @@ class CoursierController {
           
           
 
-      return response.status(200).send({msg:'etat  modifie',coursier})
+      return response.status(200).send({msg:`coursier  ${(coursier.Etat == 0) ? 'desactiver': 'activer'}  avec succès`,coursier})
   }
 
 

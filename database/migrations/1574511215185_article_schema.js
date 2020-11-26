@@ -7,7 +7,7 @@ class ArticleSchema extends Schema {
     this.create('articles', (table) => {
       table.increments()
       table.string('nom')
-      table.string('description')
+      table.text('description')
       table.string('prix')
       table.string('Etat').default(0)
       table.string('couturier_id',100)

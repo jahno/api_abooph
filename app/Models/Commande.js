@@ -5,7 +5,7 @@ const Model = use('Model')
 class Commande extends Model {
 
   static get computed () {
-    return ['etatText']
+    return ['etatText','numeroCommande']
   }
 
 
@@ -17,6 +17,15 @@ class Commande extends Model {
             4:"Confection de l'article par le couturier",5:"Confection termine",
             6:"Livraison du dit article :)"}
   }
+
+
+  getNumeroCommande({id,created_at}){
+	  let [annee,mois,jour]=created_at.split('-')
+	   jour = jour.split(' ')[0]
+    return `${annee}${mois}${jour}${id.toString().padStart(6,"0")}`
+  }
+
+
 
 
 	panier()

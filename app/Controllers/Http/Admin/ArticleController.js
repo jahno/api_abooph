@@ -63,7 +63,7 @@ class ArticleController {
  const image = new Image()
  const transaction = await Database.beginTransaction()
     try {
-      let article = request.only(['nom', 'description', 'prix','couturier_id','prix_barre'])
+      let article = request.only(['nom', 'description', 'prix','couturier_id','prix_barre','temps_confection'])
          
       let images  = request.input('images')
         article.Etat = 1
@@ -122,7 +122,7 @@ class ArticleController {
     const transaction = await Database.beginTransaction()
     const article = await Article.findOrFail(params.id)
     try {
-      const data = request.only(['nom', 'description', 'prix','prix_barre'])
+      const data = request.only(['nom', 'description', 'prix','prix_barre','temps_confection'])
       article.merge(data)
       if(request.input('images')){
         this.decodedImageModifById(request.input('images'),infoUser.nom)
@@ -157,7 +157,7 @@ class ArticleController {
                                     .where('id', params.id)
                                     .delete()
       ///await article.delete()
-       return response.status(200).send({msg:'suppression de article effectue'})
+       return response.status(200).send({msg:'suppression d`\'article effectué avec succès'})
     } catch (error) {
       return response
         .status(400)
@@ -212,7 +212,8 @@ class ArticleController {
        images: 'required',
        couturier_id: 'required',
        categorie_article_id: 'required',
-       prix_barre:'required'
+       prix_barre:'required',
+       temps_confection:'required'
     }
   }
 

@@ -1,6 +1,7 @@
 'use strict'
 const User = use('App/Models/User')
 const Newsletter = use('App/Models/Newselleter')
+const Mail = use('Mail')
 
 
 const {validateAll} = use('Validator')
@@ -18,6 +19,7 @@ const validation = await validateAll(request.all(),{
        prenom: 'required', 
        pays: 'required',
        ville: 'required',
+       sexe:'required',
        Adresse_geographique: 'required',
        numero: 'required|unique:users',
     })
@@ -64,6 +66,34 @@ const validation = await validateAll(request.all(),{
       }
 
 
+
+      async   contact({ request, response }) {
+        const validation = await validateAll(request.all(),{
+          email: 'required|email',
+          nom: 'required',
+          prenom: 'required',
+          tel: 'required',
+          message: 'required',
+       })
+
+       if(validation.fails()){
+        return response.status(404).json(validation.messages()) 
+      } 
+        const data = request.only(['email', 'nom', 'prenom','message','tel'])
+       
+             
+        
+
+     await Mail.send('auth.emails.contact',{data}, message => {
+        message.to(data.email).cc('vincentfrancois760@gmail.com')
+        .from('aboophCouture@gmail.com')
+        .subject(`Contact`)
+      })
+ 
+          
+        return response.status(201).send({msg:'ok'})
+      }
+  
   
 
 
@@ -143,6 +173,7 @@ const validation = await validateAll(request.all(),this.modelUser())
        ville: 'required',
        Adresse_geographique: 'required',
        numero: 'required',
+       sexe:'required'
     }
   }
 

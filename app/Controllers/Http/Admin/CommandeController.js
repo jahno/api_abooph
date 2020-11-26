@@ -49,7 +49,7 @@ class CommandeController {
       //await commande.panier().detach(null, transaction)
       await commande.delete()
       await transaction.commit()
-      return response.status(200).send({msg:'commande suprime'})
+      return response.status(200).send({msg:'commande supprimé'})
     } catch (error) {
       await transaction.rollback()
       return response.status(error.status).send(error)

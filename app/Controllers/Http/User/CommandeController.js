@@ -77,6 +77,7 @@ class CommandeController {
           numero:request.input('numero'),
           email:request.input('email'),
           pays:request.input('pays'),
+          sexe:request.input('sexe'),
           ville:request.input('ville'),
           password: request.input('password'),
           Adresse_geographique: request.input('Adresse_geographique')

@@ -53,7 +53,7 @@ class AdminController {
 
     return response
       .status(201)
-      .send({msg:'creation du compte effectue'})
+      .send({msg:'creation du compte effectué avec succès'})
 
   }
 
@@ -83,7 +83,7 @@ class AdminController {
 
     admin.merge(data)
     await admin.save()
-    return response.send({msg:'modification du compte effectue',admin})
+    return response.send({msg:'modification du compte effectué avec succès',admin})
   }
 
 
@@ -115,7 +115,7 @@ class AdminController {
 
      admin.merge(data)
      await admin.save()
-    return response.status(200).send({msg:'modification du compte effectue',admin})
+    return response.status(200).send({msg:'modification du compte effectué avec succès',admin})
   }
 
   async destroy ({request,response,params,auth}) {
@@ -127,7 +127,7 @@ class AdminController {
            return response.send({msg:'impossible de vous suprimer',status:400})
          }
        await admin.delete()
-      return response.status(200).send({msg:'suppression du compte effectue'})
+      return response.status(200).send({msg:'suppression du compte effectué avec succès'})
     } catch (error) {
       
       return response

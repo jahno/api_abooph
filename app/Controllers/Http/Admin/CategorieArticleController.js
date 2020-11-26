@@ -53,7 +53,7 @@ async ShowArticle ({request,response}) {
 
     return response
       .status(201)
-      .send({msg:'creation de la categorie effectue'})
+      .send({msg:'creation de la categorie effectué avec succès'})
 
   }
 
@@ -92,7 +92,7 @@ async ShowArticle ({request,response}) {
 
     categorieArticle.merge(data)
     await categorieArticle.save()
-    return response.send({msg:'modification de la categorie article effectue',categorieArticle})
+    return response.send({msg:'modification de la categorie article effectué avec succès',categorieArticle})
 
   }
 
@@ -103,7 +103,7 @@ async ShowArticle ({request,response}) {
       //await categorieArticle.articles().detach(null, transaction)
       await categorieArticle.delete(transaction)
       await transaction.commit()
-      return response.status(200).send({msg:'categorie Article suprime'})
+      return response.status(200).send({msg:'categorie article suprimé'})
     } catch (error) {
       await transaction.rollback()
       return response.status(error.status).send(error)

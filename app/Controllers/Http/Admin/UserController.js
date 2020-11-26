@@ -77,7 +77,7 @@ class UserController {
 
     user.merge(data)
     await user.save()
-    return response.send({msg:'modification du compte effectue',user})
+    return response.send({msg:'modification du compte effectué avec succès',user})
   }
 
   async destroy ({request,response,params}) {

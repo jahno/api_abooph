@@ -49,7 +49,7 @@ class CouturierController {
           
           
 
-      return response.status(200).send({msg:'etat  modifie',couturier})
+      return response.status(200).send({msg:`couturier  ${(couturier.Etat == 0) ? 'desactiver': 'activer'}  avec succès`,couturier})
   }
 
   
@@ -78,7 +78,7 @@ class CouturierController {
 
     return response
       .status(201)
-      .send({msg:'creation du compte effectue'})
+      .send({msg:'creation du compte effectué avec succès'})
 
   }
 
@@ -109,18 +109,18 @@ class CouturierController {
 
     couturier.merge(data)
     await couturier.save()
-    return response.send({msg:'modification du compte effectue',couturier})
+    return response.send({msg:'modification du compte effectué avec succès',couturier})
   }
 
   async destroy ({request,response,params}) {
     try {
       const couturier = await Couturier.findOrFail(params.id)
       await couturier.delete()
-       return response.status(200).send({msg:'suppression du compte effectue'})
+       return response.status(200).send({msg:'suppression du compte effectué avec succès'})
     } catch (error) {
       return response
         .status(400)
-        .send({ message: 'Erreur lors de la suppression' })
+        .send({ message: 'Erreur lors de la suppression du compte' })
     }
 
   }
