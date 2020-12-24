@@ -42,6 +42,7 @@ class ArticleController {
          
       let images  = request.input('images')
         article.couturier_id = infoUser.id
+       
 
 
        article  = await Article.create(article, transaction)
@@ -50,15 +51,19 @@ class ArticleController {
             article.categories().attach(request.input('categorie_article_id'))
 
            await  this.decodedImage(request.input('images'),infoUser.nom,article.id)
+           
       return response
         .status(201)
         .send({msg:'Article enregistre'})
     } catch (error) {
+      
       await transaction.rollback()
    
       return response.status(error.status).send(error)
     }
 
+      
+    
   }
 
   async show ({request,auth,response,params}) {
@@ -143,6 +148,7 @@ class ArticleController {
        description: 'required',
        images: 'required',
        categorie_article_id: 'required',
+       temps_confection: 'required',
     }
   }
 

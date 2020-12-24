@@ -56,6 +56,29 @@ class CommandeController {
   }
 
 
+  async showPdf ({request,response,params,auth,view}) {
+
+    let  infoUser = await auth.authenticator(`jwt_user`).getUser()  
+    const commande = await Commande.query()
+                                  .whereHas('user',(data)=>{
+                                    data.where('id',infoUser.id)
+                                  })
+                                  .with('user')
+                                  .where('id',params.id)
+                                  .with('mesure')
+                                  .with('panier.articles',(elt)=>{
+                                    elt.with('images')
+                                    elt.withPivot(['qte','EtatConfection'])
+                                  })
+                                  .first()
+                                  
+                                 // return response.status(200).send(commande)  
+                               //  return view.render('auth.emails.commandepdf',{commande})            
+    return view.render('auth.emails.commandepdf',{commande:commande.toJSON()})
+
+  }
+
+
  
 
   async store ({request,response,auth}) {

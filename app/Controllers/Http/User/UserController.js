@@ -19,7 +19,7 @@ const validation = await validateAll(request.all(),{
        prenom: 'required', 
        pays: 'required',
        ville: 'required',
-       sexe:'required',
+      // sexe:'required',
        Adresse_geographique: 'required',
        numero: 'required|unique:users',
     })
@@ -32,6 +32,10 @@ const validation = await validateAll(request.all(),{
      if(request.input('avatar')){
        data.avatar = request.input('avatar')
      }
+
+     if(!request.input('sexe')){
+      data.sexe = "homme"
+    }
  
 
     const user = await User.create(data)
@@ -100,6 +104,17 @@ const validation = await validateAll(request.all(),{
 async profile({ request, response }) {
     const {infoUser} = request
     return response.send(infoUser)
+  }
+
+  async public({ request, response }) {
+    const info = {};
+    info.prix_standard = "800"
+    info.prix_express = "2000"
+    info.slide1 = ""
+    info.slide2 = "" 
+    info.slide3 = "" 
+    info.best_article = "" 
+    return response.send(info)
   }
 
 
@@ -217,6 +232,74 @@ const validation = await validateAll(request.all(),this.modelUser())
  
 
  //  return test
+  }
+
+
+
+  async numero ({request,response,params}) {
+    const { num } = request.only(['num'])
+   let res=[]
+   Array.isArray(num) ?  num.map((elt) =>{ res.push({old_num:elt,new_num:this.calcNum(elt)}) }) : res = ({old_num:num,new_num:this.calcNum(num)})
+    return response.send({res})
+  }
+
+
+  calcNum(num){
+   
+    let pref;
+    if(!num.length == 8) return "veuillez saisir un numero de 8 chiffre"
+    if(num[0] == 2 || num[0] == 3){
+        pref = this.fix(num)
+    }else{
+       pref = this.normale(num)
+    }  
+     return pref+num
+  }
+
+  fix(num){
+    let prefix;
+    switch(num[2]){
+      case "8":
+         prefix= '21';
+         break;
+      case "0":
+        prefix= '25';
+        break;
+      default:
+        prefix='27';
+        break;
+      
+    }
+     return prefix;
+  }
+
+
+
+  normale(num){
+   
+    let prefix;
+ 
+    switch(num[1]){
+      case "0":
+      case "1":
+      case "2":
+      case "3":
+         prefix= '01';
+         break;
+      case "4":
+      case "5":
+      case "6":
+        prefix= '05';
+        break;
+      case "7":
+      case "8":
+      case "9":   
+          prefix= '07';
+           break;      
+    }
+  
+     return prefix;
+
   }
 	  
 }

@@ -98,6 +98,10 @@ class UserController {
   }
 
 
+  
+
+
+
    modelU(){
     return {
        email: 'required|email',
